@@ -13,6 +13,3 @@ class Camera:
                 if color not in color_ban:
                     pyxel.pset(x, y, self.color[str(color)])
 
-    def drawEntity(self, entities):
-
-

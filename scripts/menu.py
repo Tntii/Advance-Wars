@@ -33,9 +33,9 @@ def main_menu():
     global btn
 
     btn = (
-        ("PLAY", 150, 150, 200, 50, (1, 2), (7, 8)),
-        ("SETTINGS", 150, 225, 200, 50, (1, 2), (7, 8)),
-        ("QUIT", 150, 300, 200, 50, (1, 2), (7, 8))
+        ("PLAY", 150, 150, 200, 50, (11, 3), (7, 7)),
+        ("SETTINGS", 150, 225, 200, 50, (13, 1), (7, 7)),
+        ("QUIT", 150, 300, 200, 50, (8, 4), (7, 7))
     )
 
     for i in btn:
@@ -54,16 +54,29 @@ def settings():
 
     btn = (
         ("LANGUAGE", 150, 105, 200, 50, (1, 2), (7, 8)),
-        ("BACK", 150, 225, 200, 50, (1, 2), (7, 8))
+        ("-", 200, 225, 25, 25, (1, 2), (7, 8)),
+        (str(data.main_volume), 238, 225, 25, 25, (1, 1), (7, 7)),
+        ("+", 276, 225, 25, 25, (1, 2), (7, 8)),
+        ("BACK", 150, 300, 200, 50, (1, 2), (7, 8))
     )
 
     for i in btn:
         if i[1] <= pyxel.mouse_x <= i[1] + i[3] and i[2] <= pyxel.mouse_y <= i[2] + i[4] and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
             if i[0] == "BACK":
                 return "main menu"
+
             elif i[0] == "LANGUAGE":
-                if data.lang == "Francais":
-                    data.lang = "English"
+                keys = list(data.trad.keys())
+                index = keys.index(data.lang)
+                if index + 1 < len(data.trad):
+                    index += 1
                 else:
-                    data.lang = "Francais"
+                    index = 0
+                data.lang = keys[index]
+
+            elif i[0] == "-" and data.main_volume >= 5:
+                data.main_volume -= 5
+
+            elif i[0] == "+" and data.main_volume <= 95:
+                data.main_volume += 5
     return "settings"
