@@ -67,4 +67,4 @@ def remove_border(file):
     result.show()
     result.save("../texture/tile2.png")
 
-remove_border("../texture/tile.png")
+map_convert("../map/test.png")

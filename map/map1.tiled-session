@@ -3,19 +3,19 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tilesheet/main.tsx",
+    "activeFile": "test.tmx",
     "expandedProjectPaths": [
-        "tilesheet",
-        "."
+        ".",
+        "tilesheet"
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
         "test.tmx": {
-            "scale": 4,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -52.875,
-                "y": 26
+                "x": 280.66666666666663,
+                "y": 772
             }
         },
         "tilesheet/main.tsx": {
@@ -34,8 +34,8 @@
     ],
     "project": "map1.tiled-project",
     "recentFiles": [
-        "test.tmx",
-        "tilesheet/main.tsx"
+        "tilesheet/main.tsx",
+        "test.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
