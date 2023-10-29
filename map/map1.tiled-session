@@ -8,14 +8,16 @@
         ".",
         "tilesheet"
     ],
+    "exportAsImage.useCurrentScale": false,
+    "exportAsImage.visibleLayersOnly": false,
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
         "test.tmx": {
-            "scale": 0.75,
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 280.66666666666663,
-                "y": 772
+                "x": 139.25,
+                "y": -101
             }
         },
         "tilesheet/main.tsx": {
@@ -29,13 +31,12 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "tilesheet/main.tsx",
         "test.tmx"
     ],
     "project": "map1.tiled-project",
     "recentFiles": [
-        "tilesheet/main.tsx",
-        "test.tmx"
+        "test.tmx",
+        "tilesheet/main.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

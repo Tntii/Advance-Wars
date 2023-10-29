@@ -9,10 +9,8 @@ def update():
 
     if step == "main menu" or step == "settings":
         step = menu.update_menu(step)
-    elif pyxel.btnp(pyxel.KEY_P) and step == "in game":
-        step = menu.update_menu("main menu")
     elif step == "in game":
-        game.update_game()
+        step = game.update_game()
 
 
 def draw():

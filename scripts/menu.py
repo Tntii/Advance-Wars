@@ -80,3 +80,29 @@ def settings():
             elif i[0] == "+" and data.main_volume <= 95:
                 data.main_volume += 5
     return "settings"
+
+
+def action():
+    global btn
+    btn = (
+        ("Wait", pyxel.width - 50, 50, 50, 25, (1, 2), (7, 8)),
+        ("Attack", pyxel.width - 50, 80, 50, 25, (1, 2), (7, 8)),
+        ("Cancel", pyxel.width - 50, 110, 50, 25, (1, 2), (7, 8))
+    )
+    for i in btn:
+        if i[1] <= pyxel.mouse_x <= i[1] + i[3] and i[2] <= pyxel.mouse_y <= i[2] + i[4] and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+            return i[0]
+    return "action"
+
+
+def r_action():
+    global btn
+    btn = (
+        ("End", pyxel.width - 50, 50, 50, 25, (1, 2), (7, 8)),
+        ("Give up", pyxel.width - 50, 110, 50, 25, (1, 2), (7, 8)),
+        ("Menu", pyxel.width - 50, 80, 50, 25, (1, 2), (7, 8)),
+    )
+    for i in btn:
+        if i[1] <= pyxel.mouse_x <= i[1] + i[3] and i[2] <= pyxel.mouse_y <= i[2] + i[4] and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+            return i[0]
+    return "r action"

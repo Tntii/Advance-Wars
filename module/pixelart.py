@@ -37,6 +37,7 @@ def map_convert(file):
                 result_array_x.append(0)
         result_array.append(tuple(result_array_x))
     result.show()
+    result.save("../map/test-color.png")
     return model.size, tuple(result_array)
 
 
