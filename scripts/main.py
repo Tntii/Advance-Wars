@@ -23,7 +23,7 @@ def draw():
         game.draw_game()
 
 
-pyxel.init(512, 512)
+pyxel.init(240, 160)
 pyxel.mouse(True)
 
 pyxel.run(update, draw)

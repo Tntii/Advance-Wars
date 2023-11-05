@@ -2,40 +2,33 @@ import pyxel, data, menu
 from Dijkstra import Dijkstra as D
 
 troupe = [
-        [["soldier", 80, 80, 10, True]],
-        [["soldier", 96, 80, 10, True]]
+        [
+            ["soldier", 80, 80, 10, True]
+        ],
+        [
+            ["soldier", 96, 80, 10, True]
         ]
+        ]
+
+'''pos_x, pos_y, color, etape de capture'''
+build = [
+    [
+        [16, 16, 0, 0],
+        [32, 16, 1, 0]
+    ],
+    [
+    ]
+]
 
 collision = ((80, 96), (96, 96), (64, 96))
 
 tour = 0
-pos = [250, 250]
+pos = [0, 0]
 select_perso = None
 action = ""
 
 
-def draw_entity(liste, index_x, index_y, type="", texture=("square", 0)):
-    global pos
 
-    for entity in liste:
-        if entity[index_x] - pyxel.width // 2 <= pos[0] <= entity[index_x] + pyxel.width // 2 and entity[index_y] - pyxel.height // 2 <= pos[1] <= entity[index_y] + pyxel.height // 2:
-            pos_x = pyxel.width/2+(entity[index_x]-pos[0])
-            pos_y = pyxel.height//2+(entity[index_y]-pos[1])
-            if texture[0] == "square":
-                pyxel.rect(pos_x, pos_y, 16, 16, texture[1])
-            else:
-                src = data.troupe_stats[entity[0]][7][str(texture[1])][pyxel.frame_count//8%3]
-                sprite = pyxel.Image(781, 1790)
-                sprite.load(0, 0, "../texture/spriteMap.png")
-                pyxel.blt(pos_x, pos_y, sprite, src[0], src[1], 16, 16, 14)
-
-        if type == "unite" and select_perso is None and pyxel.width/2+(entity[index_x]-pos[0]) <= pyxel.mouse_x <= pyxel.width/2+(entity[index_x]-pos[0]) + 16 and pyxel.height/2+(entity[index_y]-pos[1]) <= pyxel.mouse_y <= pyxel.height/2+(entity[index_y]-pos[1]) + 16:
-            pyxel.rect(pyxel.width - 50, pyxel.height - 50, 50, 50, 0)
-            try:
-                name = data.trad[data.lang][entity[0]]
-            except KeyError:
-                    name = entity[0]
-            pyxel.text(pyxel.width - 45, pyxel.height - 45, f"{name}\n\n{entity[3]}", 7)
 
 '''def Dijkstra(map, startPoint1, endPoint):
     startPoint = startPoint1
@@ -146,7 +139,7 @@ def on_case(pos, case):
 
 def case_coord():
     global select_perso
-    cote = data.troupe_stats[select_perso[1][0]][2]
+    cote = data.troupe_stats[select_perso[1][0]]["r_deplacement"]
     facing = 0
     case_x = 0
     case_y = 0
@@ -156,15 +149,15 @@ def case_coord():
         for case in range(cote):
             if facing == 0:
                 case_x = select_perso[1][1] - case * 16
-                case_y = select_perso[1][2] - (data.troupe_stats[select_perso[1][0]][2] - cote + 1) * 16
+                case_y = select_perso[1][2] - (data.troupe_stats[select_perso[1][0]]["r_deplacement"] - cote + 1) * 16
             elif facing == 1:
-                case_x = select_perso[1][1] - (data.troupe_stats[select_perso[1][0]][2] - cote + 1) * 16
+                case_x = select_perso[1][1] - (data.troupe_stats[select_perso[1][0]]["r_deplacement"] - cote + 1) * 16
                 case_y = select_perso[1][2] + case * 16
             elif facing == 2:
                 case_x = select_perso[1][1] + case * 16
-                case_y = select_perso[1][2] + (data.troupe_stats[select_perso[1][0]][2] - cote + 1) * 16
+                case_y = select_perso[1][2] + (data.troupe_stats[select_perso[1][0]]["r_deplacement"] - cote + 1) * 16
             elif facing == 3:
-                case_x = select_perso[1][1] + (data.troupe_stats[select_perso[1][0]][2] - cote + 1) * 16
+                case_x = select_perso[1][1] + (data.troupe_stats[select_perso[1][0]]["r_deplacement"] - cote + 1) * 16
                 case_y = select_perso[1][2] - case * 16
 
             if (case_x, case_y) not in collision:
@@ -184,7 +177,7 @@ def case_coord():
 
         if cote == 0:
             facing += 1
-            cote = data.troupe_stats[select_perso[1][0]][2]
+            cote = data.troupe_stats[select_perso[1][0]]["r_deplacement"]
 
     map = {}
     for case in select_perso[2] + [(select_perso[1][1], select_perso[1][2])]:
@@ -204,7 +197,7 @@ def case_coord():
         D1 = D(map, str((select_perso[1][1], select_perso[1][2])), str(case))
         dist = D1.Dijkstra()
 
-        if data.troupe_stats[select_perso[1][0]][2] * 16 < dist:
+        if data.troupe_stats[select_perso[1][0]]["r_deplacement"] * 16 < dist:
             select_perso[2].remove(case)
 
 
@@ -260,6 +253,52 @@ def update_game():
     return "in game"
 
 
+def draw_entity(liste, index_x, index_y, type="", texture=("square", 0)):
+    global pos
+
+    for entity in liste:
+        if entity[index_x] - pyxel.width // 2 <= pos[0] <= entity[index_x] + pyxel.width // 2 and entity[index_y] - pyxel.height // 2 <= pos[1] <= entity[index_y] + pyxel.height // 2:
+            pos_x = pyxel.width/2+(entity[index_x]-pos[0])
+            pos_y = pyxel.height//2+(entity[index_y]-pos[1])
+
+            if type == "build":
+                if texture[1] == 0:
+                    name_init = "HQ"
+                elif texture[1] == 1:
+                    name_init = "city"
+
+            if texture[0] == "square":
+                pyxel.rect(pos_x, pos_y, 16, 16, texture[1])
+            else:
+                if type == "unite":
+                    src = data.troupe_stats[entity[0]]["animation"]["idle"][texture[1]][pyxel.frame_count//8%3]
+                    sprite = pyxel.Image(755, 1370)
+                    sprite.load(0, 0, "../texture/spriteMap.png")
+                    pyxel.blt(pos_x, pos_y, sprite, src[0], src[1], 16, 16, 14)
+                elif type == "build":
+                    src = data.build_stats[name_init]["animation"][entity[2]][pyxel.frame_count//16%2]
+                    sprite = pyxel.Image(781, 1790)
+                    sprite.load(0, 0, "../texture/tile.png")
+                    pyxel.blt(pos_x, pos_y-16, sprite, src[0], src[1], 15, 31, 0)
+
+        if type == "unite" and select_perso is None and on_case(pos, (entity[index_x], entity[index_y])):
+            pyxel.rect(pyxel.width - 50, pyxel.height - 50, 50, 50, 0)
+            try:
+                name = data.trad[data.lang][entity[0]]
+            except KeyError:
+                    name = entity[0]
+            pyxel.text(pyxel.width - 45, pyxel.height - 45, f"{name}\n\n{entity[3]}", 7)
+
+        elif type == "build" and select_perso is None and on_case(pos, (entity[index_x], entity[index_y])):
+            pyxel.rect(pyxel.width - 50, pyxel.height - 50, 50, 50, 0)
+
+            try:
+                name = data.trad[data.lang][name_init]
+            except KeyError:
+                name = name_init
+            pyxel.text(pyxel.width - 45, pyxel.height - 45, f"{name}\n\n{entity[3]}", 7)
+
+
 def draw_game():
     global troupe, tour, pos, select_perso, action
 
@@ -270,6 +309,7 @@ def draw_game():
 
     draw_entity(troupe[0], 1, 2, "unite", ("sprite", 0))
     draw_entity(troupe[1], 1, 2, "unite", ("sprite", 1))
+    draw_entity(build[0], 0, 1, "build", ("sprite", 0))
 
     if select_perso is not None:
         if action == "":

@@ -4,7 +4,7 @@ from PIL import Image
 
 def map_convert(file):
     model = Image.open(file)
-    result = Image.new(model.mode, model.size)
+    result = Image.new("RGB", model.size)
     result_array = []
 
     color = ((0, 0, 0), (43, 51, 95), (126, 32, 114),
@@ -37,7 +37,7 @@ def map_convert(file):
                 result_array_x.append(0)
         result_array.append(tuple(result_array_x))
     result.show()
-    result.save("../map/test-color.png")
+    result.save("spriteMap.png")
     return model.size, tuple(result_array)
 
 
@@ -66,6 +66,6 @@ def remove_border(file):
     print(model.getpixel((-1, -1)))
 
     result.show()
-    result.save("../texture/tile2.png")
 
-map_convert("../map/test.png")
+
+map_convert("spriteMap.png")
