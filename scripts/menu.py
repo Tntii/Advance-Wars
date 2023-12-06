@@ -137,7 +137,7 @@ def settings():
 def key_setting(stade):
     global btn
     key = tuple(data.command.keys())
-    b = [(key[i] + ":" + data.command[key[i]][1], 70, i*30 + 20, 100, 20, (13, 1), (7, 7)) for i in range(0, len(key))]
+    b = [(key[i] + ":" + data.command[key[i]][1], 70, i*30 + 10, 100, 20, (13, 1), (7, 7)) for i in range(0, len(key))]
     b.append(("BACK", 5, 135, 40, 20, (5, 1), (7, 5)))
     btn = tuple(b)
     event = interract(btn, "key")
@@ -172,10 +172,10 @@ def action(can_capture, can_attack):
 def r_action():
     global btn
     btn = (
-        ("End", pyxel.width - 40, 20, 40, 15, (5, 1), (7, 5)),
-        ("Give up", pyxel.width - 40, 35, 40, 15, (5, 1), (7, 5)),
-        ("Menu", pyxel.width - 40, 50, 40, 15, (5, 1), (7, 5)),
-        ("Continue", pyxel.width - 40, 65, 40, 15, (5, 1), (7, 5)),
+        ("End", pyxel.width - 43, 20, 43, 15, (5, 1), (7, 5)),
+        ("Give up", pyxel.width - 43, 35, 43, 15, (5, 1), (7, 5)),
+        ("Menu", pyxel.width - 43, 50, 43, 15, (5, 1), (7, 5)),
+        ("Continue", pyxel.width - 43, 65, 43, 15, (5, 1), (7, 5)),
     )
 
     event = interract(btn, "r action")
@@ -200,7 +200,7 @@ def attack():
 def game_over(p):
     global btn
 
-    btn = (("Back to menue", 10, 135, 40, 20, (5, 1), (7, 5)), ("", 0, 0, 0, 0, (0, 0), (0, 0)))
+    btn = (("Back to menue", 10, 135, 65, 20, (5, 1), (7, 5)), ("", 0, 0, 0, 0, (0, 0), (0, 0)))
 
     event = interract(btn, "w"+p)
 

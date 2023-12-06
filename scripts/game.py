@@ -15,8 +15,9 @@ current_map = ""
 
 
 def init_game():
-    global collision, build, troupe, current_map, pos
+    global collision, build, troupe, current_map, pos, action
 
+    action = ""
     pos = [120, 80]
     data.load_texture(data.current_map)
     build = data.map[data.current_map]["build"][:]

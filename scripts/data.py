@@ -8,7 +8,7 @@ trad = {"Francais": {"BACK": "RETOUR", "LANGUAGE": "LANGUE: francais", "QUIT": "
                      "SETTINGS": "PARAMETRE", "Key": "Controle", "infantry": "soldat", "heavy infantry": "soldat lourd", "mortar": "mortier",
                      "city": "ville", "hp": "pv", "col lvl": "niv col", "damage": "degats", "reach": "porte",
                      "0": "Les rouges ont gagnes !", "1": "Les bleus ont gagnes !", "HQ": "QG",
-                     "up": "haut", "down": "bas", "right": "droite", "left": "gauche", "End": "Fin", "Give up": "Abandonne", "Continue": "Continuer", "Back to menue": "Retour au menu"},
+                     "up": "haut", "down": "bas", "right": "droite", "left": "gauche", "End": "Fin", "Give up": "Abandonner", "Continue": "Continuer", "Back to menue": "Retour au menu"},
         "English": {"LANGUAGE": "LANGUAGE: english", "0": "Red team won ! ", "1": "Blue team won!", "Key": "Control"},
         }
 
