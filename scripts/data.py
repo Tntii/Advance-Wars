@@ -1,6 +1,8 @@
 import pyxel
 
 current_map = "The Bridge"
+in_game = False
+credit = open("../text/fr/credits.txt", "r")
 
 lang = "Francais"
 
@@ -8,8 +10,10 @@ trad = {"Francais": {"BACK": "RETOUR", "LANGUAGE": "LANGUE: francais", "QUIT": "
                      "SETTINGS": "PARAMETRE", "Key": "Controle", "infantry": "soldat", "heavy infantry": "soldat lourd", "mortar": "mortier",
                      "city": "ville", "hp": "pv", "col lvl": "niv col", "damage": "degats", "reach": "porte",
                      "0": "Les rouges ont gagnes !", "1": "Les bleus ont gagnes !", "HQ": "QG",
-                     "up": "haut", "down": "bas", "right": "droite", "left": "gauche", "End": "Fin", "Give up": "Abandonner", "Continue": "Continuer", "Back to menue": "Retour au menu"},
-        "English": {"LANGUAGE": "LANGUAGE: english", "0": "Red team won ! ", "1": "Blue team won!", "Key": "Control"},
+                     "up": "haut", "down": "bas", "right": "droite", "left": "gauche", "End": "Fin", "Give up": "Abandonner", "Continue": "Continuer", "Back to menue": "Retour au menu",
+                     "Wait": "Attendre", "Cancel": "Annuler", "Attack": "Attaquer", "hide stats": "cacher les stats"},
+        "English": {"LANGUAGE": "LANGUAGE: english", "0": "Red team won ! ", "1": "Blue team won!", "Key": "Control",
+                    "haut": "up", "bas": "down", "gauche": "left", "droite": "right", "cacher les stats": "hide stats"},
         }
 
 main_volume = "ON"
@@ -95,9 +99,6 @@ command = {"up": (122, "z"),
 
 texture = {}
 
-music = [
-
-]
 
 map = {
         "Brace Range": {"collision": [
@@ -440,7 +441,7 @@ def load_texture(mapp):
         texture[sr[3]] = img
 
 
-current_music = 0
+current_music = 1
 
 
 def next_music():
@@ -458,10 +459,10 @@ def load_music():
     pyxel.load("../res_Bruno.pyxres", image=False, tilemap=False)
 
 
-def traducteur(key):
-    global lang, trad
+def traducteur(key, language=lang):
+    global trad
 
     try:
-        return trad[lang][key]
+        return trad[language][key]
     except KeyError:
         return key

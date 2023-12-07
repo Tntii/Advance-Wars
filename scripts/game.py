@@ -17,6 +17,7 @@ current_map = ""
 def init_game():
     global collision, build, troupe, current_map, pos, action
 
+    data.in_game = True
     action = ""
     pos = [120, 80]
     data.load_texture(data.current_map)
@@ -93,7 +94,7 @@ def menu_action(action):
         action = menu.r_action()
 
         if action == "Menu":
-            return "main menu ig"
+            return "main menu"
         elif action == "End":
             for unite in troupe[tour]:
                 unite[4] = True
@@ -157,15 +158,18 @@ def case_coord():
             facing += 1
             cote = data.troupe_stats[select_perso[1][0]]["r_deplacement"]
 
+
+
     # vérifie si il est possible d'y aller
     if not get_arround(select_perso[2], (select_perso[1][1], select_perso[1][2])):
         select_perso[2] = []
 
     for case in select_perso[2]:
-        if is_correct(select_perso[2], (select_perso[1][1], select_perso[1][2]), case, data.troupe_stats[select_perso[1][0]]["r_deplacement"]):
+        if case not in get_arround(select_perso[2], (select_perso[1][1], select_perso[1][2])) and is_correct(select_perso[2], (select_perso[1][1], select_perso[1][2]), case, data.troupe_stats[select_perso[1][0]]["r_deplacement"]):
             select_perso[2].remove(case)
 
     select_perso[2].append((select_perso[1][1], select_perso[1][2]))
+    print(get_arround(select_perso[2], (select_perso[1][1], select_perso[1][2])), (select_perso[1][1], select_perso[1][2]))
 
 
 def camera_movement():
@@ -199,8 +203,6 @@ def attack_func(atk, deff):
     global tour, select_perso
     ennemi = get_ennemi_index(tour)
     deff = troupe[ennemi].index(deff)
-    print(round(data.troupe_stats[troupe[tour][atk][0]]["attack"] * (troupe[tour][atk][3] / data.troupe_stats[troupe[tour][atk][0]]["pv"]), 2))
-    print(troupe[ennemi][deff][3] - round(data.troupe_stats[troupe[tour][atk][0]]["attack"] * (troupe[tour][atk][3] / data.troupe_stats[troupe[tour][atk][0]]["pv"]), 2))
 
     troupe[ennemi][deff][3] -= round(data.troupe_stats[troupe[tour][atk][0]]["attack"] * (troupe[tour][atk][3] / data.troupe_stats[troupe[tour][atk][0]]["pv"]), 2)
 
@@ -265,6 +267,7 @@ def win(player):
     global action
 
     action = "w" + str(player)
+    data.in_game = False
 
 
 def sort_troupe():
@@ -316,7 +319,8 @@ def update_game():
                 if on_case(pos, (unite[1], unite[2])) and abs(unite[1] - troupe[tour][select_perso[3]][1]) + abs(unite[2] - troupe[tour][select_perso[3]][2]) <= data.troupe_stats[troupe[tour][select_perso[3]][0]]["r_attack"]*16:
                     attack_func(select_perso[3], unite)
                     action = ""
-                    troupe[tour][select_perso[3]][4] = False
+                    if select_perso[1] in troupe[tour]:
+                        troupe[tour][select_perso[3]][4] = False
                     select_perso = None
 
         elif action == "Capture":

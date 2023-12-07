@@ -1,0 +1,8 @@
+Ce projet est un jeu realise avec python et Pyxel.
+Il a ete realise dans le cadre d'un projet de NSI
+de 1ere.
+Ce jeu est inspirée du celebre jeu Nitendo
+qui porte le meme nom.
+
+
+Cree par Bruno et Teo.K

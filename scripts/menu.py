@@ -5,13 +5,15 @@ btn = ()
 
 def update_menu(step):
     if step[:9] == "main menu":
-        return main_menu(step)
+        return main_menu()
     elif step == "settings":
         return settings()
     elif step == "key" or step[:10] == "wait entry":
         return key_setting(step)
     elif step == "choice map":
         return map_choice()
+    elif step == "Credits":
+        return credits()
     return step
 
 
@@ -27,10 +29,10 @@ def draw_menu(bg=None):
         name = data.traducteur(i[0])
         if i[1] <= pyxel.mouse_x <= i[1] + i[3] and i[2] <= pyxel.mouse_y <= i[2] + i[4]:
             pyxel.rect(i[1], i[2], i[3], i[4], i[5][1])
-            pyxel.text(i[1] + i[3] / 2 - 1.75*len(name), i[2] + i[4] / 2 - 2, name, i[6][1])
+            pyxel.text(i[1] + i[3] / 2 - 1.9*len(name), i[2] + i[4] / 2 - 2, name, i[6][1])
         else:
             pyxel.rect(i[1], i[2], i[3], i[4], i[5][0])
-            pyxel.text(i[1] + i[3] / 2 - 1.75*len(name), i[2] + i[4] / 2 - 2, name, i[6][0])
+            pyxel.text(i[1] + i[3] / 2 - 1.9*len(name), i[2] + i[4] / 2 - 2, name, i[6][0])
 
 
 def interract(btn, no_click):
@@ -40,7 +42,7 @@ def interract(btn, no_click):
     return no_click
 
 
-def main_menu(ig):
+def main_menu():
     global btn
 
     btn = (
@@ -50,10 +52,10 @@ def main_menu(ig):
         ("Credits", 125, 120, 45, 20, (12, 5), (7, 12))
     )
 
-    event = interract(btn, ig)
-    if event == "PLAY" and ig == "main menu":
+    event = interract(btn, "main menu")
+    if event == "PLAY" and  not data.in_game:
         return "choice map"
-    elif event == "PLAY" and ig == "main menu ig":
+    elif event == "PLAY" and data.in_game:
         return "in game"
     elif event == "QUIT":
         pyxel.quit()
@@ -137,14 +139,14 @@ def settings():
 def key_setting(stade):
     global btn
     key = tuple(data.command.keys())
-    b = [(key[i] + ":" + data.command[key[i]][1], 70, i*30 + 10, 100, 20, (13, 1), (7, 7)) for i in range(0, len(key))]
+    b = [(data.traducteur(key[i]) + ":" + data.command[key[i]][1], 70, i*30 + 10, 100, 20, (13, 1), (7, 7)) for i in range(0, len(key))]
     b.append(("BACK", 5, 135, 40, 20, (5, 1), (7, 5)))
     btn = tuple(b)
     event = interract(btn, "key")
 
     if stade == "key":
         if event not in ("key", "BACK"):
-            return f"wait entry {event[:-2]}"
+            return f"wait entry {data.traducteur(event[:-2], 'English')}"
         if event == "BACK":
             return "settings"
 
@@ -203,6 +205,19 @@ def game_over(p):
     btn = (("Back to menue", 10, 135, 65, 20, (5, 1), (7, 5)), ("", 0, 0, 0, 0, (0, 0), (0, 0)))
 
     event = interract(btn, "w"+p)
+
+    if event == "Back to menue":
+        return "main menu"
+
+    return event
+
+
+def credits():
+    global btn
+
+    btn = (("Back to menue", 10, 135, 65, 20, (5, 1), (7, 5)), ("", 0, 0, 0, 0, (0, 0), (0, 0)))
+
+    event = interract(btn, "Credits")
 
     if event == "Back to menue":
         return "main menu"
