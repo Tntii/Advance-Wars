@@ -1,5 +1,3 @@
 # Advance-Wars
-a game for a NSI project
 
-Logiciel à installer:
-  https://www.mapeditor.org/ Il permet de créé des maps a partir de tile
+Pour plus d'information voir le [wiki](https://github.com/Tntii/Advance-Wars/wiki)
